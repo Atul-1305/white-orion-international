@@ -1,0 +1,442 @@
+<div>
+  <!-- ================= HERO SECTION ================= -->
+  <main class="main-section" id="main-section">
+    <div class="slides">
+      <div class="slide active" style="background-image: url(<%= asset_path('index/background1.jpg') %>);">
+        <div class="main-content text-center text-white">
+          <h1 class="fw-bold animate__animated animate__fadeInDown">Welcome to White Orion International</h1>
+          <p class="lead animate__animated animate__fadeInUp mt-3">
+            Your trusted partner in global trade and logistics. Empowering your global trade ambitions with efficiency, transparency, and integrity.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide" style="background-image: url(<%= asset_path('index/background2.png') %>);">
+        <div class="main-content text-center text-white">
+          <h1 class="fw-bold animate__animated animate__fadeInDown">Seamless Global Trade Solutions</h1>
+          <p class="lead animate__animated animate__fadeInUp mt-3">
+            We connect businesses worldwide, facilitating seamless transactions with efficiency and transparency. Let us handle the complexities of international trade while you focus on growth.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide" style="background-image: url(<%= asset_path('index/background3.png') %>);">
+        <div class="main-content text-center text-white">
+          <h1 class="fw-bold animate__animated animate__fadeInDown">Innovative and Reliable Trade Services</h1>
+          <p class="lead animate__animated animate__fadeInUp mt-3">
+            Driven by innovation and excellence, we deliver comprehensive export solutions tailored to your business. Join us in shaping the future of international trade.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= COUNTER SECTION ================= -->
+<section id="stats" class="text-center py-5 bg-light">
+  <div class="container">
+    <h2 class="section-title mb-5">Our Achievements</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <h3 class="counter" data-target="50">0</h3>
+        <p>Global Clients</p>
+      </div>
+      <div class="col-md-3">
+        <h3 class="counter" data-target="20">0</h3>
+        <p>Products Exported</p>
+      </div>
+      <div class="col-md-3">
+        <h3 class="counter" data-target="5">0</h3>
+        <p>Countries Served</p>
+      </div>
+      <div class="col-md-3">
+        <h3 class="counter" data-target="10">0</h3>
+        <p>Team Members</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- ================= KEY POINTS ================= -->
+  <section class="key-points container py-5">
+    <h2 class="section-title text-center mb-5">Key Points</h2>
+    <p class="lead text-center mb-4">
+    At White Orion International, we put our clients first, meeting their needs with great service and customized solutions. Our strict Quality Assurance ensures top standards for all our products and services, building trust and satisfaction. With our Global Reach, we connect markets worldwide, helping businesses grow across borders. Our focus on Seamless Transactions makes international trade easy and transparent. These values drive our mission to support successful global trade partnerships, providing unmatched value and reliability.    </p>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="services container py-5">
+    <h2 class="section-title text-center mb-5">Our Export Services</h2>
+    <div class="services-grid">
+      <div class="service-card" data-aos="fade-up">
+        <div class="animated-icon">🌾</div>
+        <h3>Agricultural Products Export</h3>
+        <p>Exporting premium grains, spices, and agro products with full compliance and quality control.</p>
+      </div>
+      <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+        <div class="animated-icon">🏗️</div>
+        <h3>Industrial Goods Export</h3>
+        <p>Supplying reliable industrial raw materials and machinery worldwide efficiently.</p>
+      </div>
+      <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="animated-icon">🚢</div>
+        <h3>Global Logistics</h3>
+        <p>Providing complete export logistics solutions from packaging to final delivery.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY CHOOSE US ================= -->
+  <section class="key-points container py-5">
+    <h2 class="section-title text-center mb-5">Why Choose Us</h2>
+    <p class="lead text-center mb-4">
+      Choosing White Orion International means choosing reliability, expertise, and exceptional service. With our dedicated team and years of experience in the import-export industry, we understand the unique challenges businesses face in global trade. We offer tailored solutions to meet your needs, ensuring seamless transactions and peace of mind. Our commitment to quality, transparency, and customer satisfaction sets us apart as your trusted partner in international trade. Whether you're a small business looking to expand globally or a large corporation seeking efficient import-export solutions, White Orion International is here to empower your success. Join us and experience the difference firsthand.
+    </p>
+    <div class="key-points-grid">
+      <div class="key-point-card" data-aos="zoom-in"><div class="circle-icon">👥</div><h3>Customer Focused</h3><p>We provide personalized export solutions for every business.</p></div>
+      <div class="key-point-card" data-aos="zoom-in" data-aos-delay="150"><div class="circle-icon">✔️</div><h3>Quality Assurance</h3><p>Global standards through strict inspections and certifications.</p></div>
+      <div class="key-point-card" data-aos="zoom-in" data-aos-delay="300"><div class="circle-icon">🌍</div><h3>Global Reach</h3><p>Delivering Indian excellence to international markets.</p></div>
+      <div class="key-point-card" data-aos="zoom-in" data-aos-delay="450"><div class="circle-icon">⚡</div><h3>Seamless Process</h3><p>Transparent, fast, and reliable export operations.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED PRODUCTS ================= -->
+  <section class="featured-products container py-5">
+    <h2 class="section-title text-center mb-5">Featured Products</h2>
+    <div class="row g-4">
+      <% @featured_products ||= Product.limit(6) %>
+      <% @featured_products.each do |product| %>
+        <div class="col-md-6 col-lg-4">
+          <div class="card product-card" data-aos="fade-up">
+            <% if product.image.attached? %>
+              <%= link_to image_tag(product.image, class: "card-img-top product-img"), product_path(product) %>
+            <% end %>
+            <div class="card-body text-center">
+              <h5><%= product.name %></h5>
+              <%= link_to "View Details", product_path(product), class: "btn btn-outline-primary btn-sm rounded-pill" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- ================= CERTIFICATIONS ================= -->
+  <section class="certifications container py-5">
+    <h2 class="section-title text-center mb-5">Certifications</h2>
+    <p class="lead text-center mb-4">
+      At White Orion International, we proudly hold certifications from FSSAI, MSME, IEC, APEDA, FIEO, and the Spices Board of India. These recognitions reflect our commitment to global quality, food safety, and export excellence. Each certification strengthens our credibility in international trade and ensures we deliver only the finest products and services to our clients worldwide.
+    </p>
+    <div class="certifications-grid">
+      <% Certification.all.each do |cert| %>
+        <div class="cert-card" data-aos="fade-up">
+          <% if cert.image.attached? %>
+            <%= image_tag cert.image, alt: cert.name, class: "cert-img" %>
+          <% else %>
+            <p><%= cert.name %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="testimonials py-5 bg-light">
+    <div class="container text-center">
+      <h2 class="section-title mb-5">What Our Clients Say</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card" data-aos="fade-up">
+          <p>"White Orion made our export process seamless and transparent. Exceptional professionalism!"</p>
+          <h5>— Global Agro Ltd.</h5>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="150">
+          <p>"Reliable partner for international trade. Their team is knowledgeable and responsive."</p>
+          <h5>— Sunrise Imports</h5>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+          <p>"Truly a trusted export company. Excellent communication and on-time delivery!"</p>
+          <h5>— Orion Overseas</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TEAM ================= -->
+  <section class="team container py-5">
+    <h2 class="text-center mb-5 fw-bold text-primary" data-aos="fade-down">Meet Our Team</h2>
+    <p class="lead text-center mb-4">
+        Our dedicated team of professionals is committed to delivering excellence in every aspect of international trade. With diverse expertise and a passion for customer satisfaction, we work tirelessly to ensure your business thrives in the global marketplace. Get to know the people behind White Orion International who make it all possible.
+    </p>
+    <div class="row g-4">
+      <% (@directors || []).each_with_index do |director, index| %>
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+          <div class="director-card text-center p-4 shadow-lg rounded-4">
+            <% if director.photo.attached? %>
+              <div class="director-photo-wrapper mb-3">
+                <%= image_tag director.photo, class: "director-photo", alt: director.name %>
+              </div>
+            <% end %>
+            <h3 class="fw-bold text-dark"><%= director.name %></h3>
+            <p class="text-primary mb-2"><%= director.position %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT CTA ================= -->
+  <section class="contact-cta text-center py-5 bg-primary text-white">
+    <h2>Ready to Export with Us?</h2>
+    <p>Contact us today to discuss your export requirements and get a personalized quote.</p>
+    <%= link_to "Request a Quote", contact_path, class: "btn btn-light btn-lg rounded-pill" %>
+  </section>
+</div>
+
+<!-- ================== STYLES ================== -->
+<style>
+body { font-family: "Poppins", sans-serif; background: #f7f9fa; color: #333; }
+.section-title { font-weight: 700; color: #024869; }
+
+/* Hero */
+.main-section { position: relative; height: 744px; overflow: hidden; }
+.slide {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 744px;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 1s ease-in-out;
+  display: flex; justify-content: center; align-items: center; flex-direction: column;
+}
+.slide.active { opacity: 1; z-index: 2; }
+.main-content h1 { font-size: 3rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+.main-content p { font-size: 1.25rem; max-width: 800px; margin: 0 auto; text-shadow: 1px 1px 8px rgba(0,0,0,0.4); }
+
+/* Counter */
+.stats h2 { font-size: 3rem; color: #024869; }
+.stats p { margin-top: 5px; color: #555; }
+
+/* Grid sections */
+.services-grid, .key-points-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+.service-card, .key-point-card, .testimonial-card { background: #fff; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-align: center; }
+.service-card:hover, .key-point-card:hover, .testimonial-card:hover { transform: translateY(-10px); }
+
+/* Testimonials */
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.testimonial-card p { font-style: italic; color: #444; }
+
+/* Product */
+.product-card { border-radius: 15px; overflow: hidden; background: #fff; transition: transform .3s; text-align: center; }
+.product-card:hover { transform: translateY(-8px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+.product-img { width: 100%; height: 220px; object-fit: cover; }
+
+/* Certifications */
+.certifications-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; text-align: center; }
+.cert-img { width: 120px; height: auto; }
+
+/* Team */
+.director-photo-wrapper { height: 220px; overflow: hidden; border-radius: 20px; background: #f8f9fa; }
+.director-photo { width: 100%; height: 100%; object-fit: contain; transition: transform .3s; }
+.director-photo:hover { transform: scale(1.05); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content h1 { font-size: 2rem; }
+  .main-content p { font-size: 1rem; }
+}
+
+/* === KEY POINTS SECTION === */
+.key-points {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f6ff 100%);
+  border-radius: 20px;
+  padding: 60px 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.key-points .section-title {
+  color: #024869;
+  font-weight: 700;
+}
+
+.key-points p.lead {
+  color: #444;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+}
+
+.key-points-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.key-point-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.key-point-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Circle Emoji/Icon Styling */
+.circle-icon {
+  font-size: 3rem;             /* Bigger emoji */
+  margin-bottom: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.key-point-card:hover .circle-icon {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5);
+}
+
+.key-point-card h3 {
+  color: #024869;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.key-point-card p {
+  color: #555;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+/* === OUR EXPORT SERVICES SECTION === */
+.services {
+  background: linear-gradient(135deg, #f9fbff 0%, #eef6ff 100%);
+  border-radius: 20px;
+  padding: 60px 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.services .section-title {
+  color: #024869;
+  font-weight: 700;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* Animated Gradient Icons */
+.animated-icon {
+  font-size: 3rem; /* emoji size */
+  margin-bottom: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 119, 182, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover .animated-icon {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 119, 182, 0.5);
+}
+
+/* Service Titles and Text */
+.service-card h3 {
+  color: #024869;
+  font-weight: 600;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.service-card p {
+  color: #555;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+/* === Achievements Counter Styling === */
+#stats {
+  background: linear-gradient(135deg, #f8fbff 0%, #e6f0ff 100%);
+}
+
+#stats h2.section-title {
+  color: #024869;
+  font-weight: 700;
+}
+
+.counter {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #007bff; /* blue tone matching theme */
+  text-shadow: 1px 1px 10px rgba(0, 123, 255, 0.2);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.counter:hover {
+  transform: scale(1.1);
+  color: #0056b3; /* darker blue on hover */
+}
+
+#stats p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-top: 10px;
+}
+
+</style>
+
+<!-- ================== SCRIPT ================== -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  AOS.init({ duration: 1000, once: true });
+
+  // Hero slider
+  const slides = document.querySelectorAll(".slide");
+  if (slides.length > 0) {
+    let index = 0;
+    setInterval(() => {
+      slides[index].classList.remove("active");
+      index = (index + 1) % slides.length;
+      slides[index].classList.add("active");
+    }, 5000);
+  }
+});
+</script>
+
+<%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" %>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">

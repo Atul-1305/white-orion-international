@@ -1,0 +1,133 @@
+<div class="container-fluid py-5 px-4">
+  <div class="row">
+    <!-- 🧭 SIDEBAR -->
+    <aside class="col-lg-3 mb-4">
+      <div class="sidebar bg-white shadow-sm rounded-4 p-3">
+        <h5 class="fw-bold text-success text-center mb-3">
+          <i class="bi bi-grid-fill me-2"></i> Product Categories
+        </h5>
+
+        <% grouped_categories = {
+          "Agriculture" => @categories.select { |c| c.name.downcase.include?("agri") },
+          "Industrial Products" => @categories.reject { |c| c.name.downcase.include?("agri") }
+        } %>
+
+        <% grouped_categories.each do |group_name, categories| %>
+          <div class="mb-4">
+            <h6 class="text-primary fw-bold mb-2"><%= group_name %></h6>
+            <div class="accordion" id="accordion_<%= group_name.parameterize %>">
+              <% categories.each do |category| %>
+                <div class="accordion-item border-0 mb-2">
+                  <h2 class="accordion-header" id="heading_<%= category.id %>">
+                    <button class="accordion-button collapsed fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapse_<%= category.id %>"
+                            aria-expanded="false" aria-controls="collapse_<%= category.id %>">
+                      <%= category.name %>
+                    </button>
+                  </h2>
+
+                  <div id="collapse_<%= category.id %>"
+                       class="accordion-collapse collapse <%= 'show' if category == @selected_category %>"
+                       data-bs-parent="#accordion_<%= group_name.parameterize %>">
+                    <div class="accordion-body py-2">
+                      
+                      <%# Products in subcategories %>
+                      <% category.subcategories.each do |subcategory| %>
+                        <div class="mb-2">
+                          <h6 class="text-success small fw-bold"><%= subcategory.name %></h6>
+                          <% subcategory.products.each do |product| %>
+                            <%= link_to product.name, product_path(product),
+                                class: "d-block text-dark ps-3 py-1 small hover-link" %>
+                          <% end %>
+                        </div>
+                      <% end %>
+
+                      <%# Products directly under category (no subcategory) %>
+                      <% category.direct_products.each do |product| %>
+                        <%= link_to product.name, product_path(product),
+                            class: "d-block text-dark ps-3 py-1 small hover-link" %>
+                      <% end %>
+
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </aside>
+
+    <!-- 💎 PRODUCT GRID -->
+    <section class="col-lg-9 animate__animated animate__fadeInUp">
+      <% if @products.any? %>
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="fw-bold text-success"><%= @selected_category&.name %></h2>
+          <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill shadow-sm">
+            <%= @products.count %> Products
+          </span>
+        </div>
+
+        <div class="row g-4">
+          <% @products.each do |product| %>
+            <div class="col-md-6 col-lg-4">
+              <div class="card product-card border-0 shadow-sm h-100 rounded-4 overflow-hidden animate__animated animate__fadeInUp">
+                <div class="img-wrapper">
+                  <% if product.image.attached? %>
+                    <%= link_to image_tag(product.image, class: "card-img-top product-img", alt: product.name), product_path(product) %>
+                  <% else %>
+                    <%= image_tag "placeholder.jpg", class: "card-img-top product-img" %>
+                  <% end %>
+                </div>
+                <div class="card-body text-center">
+                  <h5 class="fw-bold text-dark mb-1"><%= product.name %></h5>
+                  <%= link_to "View Details", product_path(product),
+                      class: "btn btn-outline-success btn-sm rounded-pill mt-2" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-muted">No products found.</p>
+      <% end %>
+    </section>
+  </div>
+</div>
+
+<!-- ✅ INLINE CSS -->
+<style>
+body { background: #f7f9fa; font-family: "Poppins", sans-serif; }
+.sidebar { position: sticky; top: 90px; border-radius: 16px; max-height: 85vh; overflow-y: auto; }
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: #c8e6c9; border-radius: 10px; }
+.accordion-button { background: #f8f9fa; border-radius: 8px !important; color: #024869; }
+.accordion-button:not(.collapsed) { background: #e8f5e9; color: #198754; box-shadow: none; }
+.hover-link { transition: color 0.3s ease, transform 0.2s; }
+.hover-link:hover { color: #198754; transform: translateX(5px); text-decoration: underline; }
+.product-card { transition: all 0.35s ease; border-radius: 16px !important; overflow: hidden; background: #fff; }
+.product-card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.img-wrapper { position: relative; overflow: hidden; }
+.product-img { height: 230px; width: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.product-card:hover .product-img { transform: scale(1.1); }
+.btn-outline-success { border-radius: 25px; transition: all 0.3s ease; }
+.btn-outline-success:hover { background: #198754; color: #fff; box-shadow: 0 4px 12px rgba(25,135,84,0.3); }
+@media (max-width: 992px) { .sidebar { position: static; margin-bottom: 20px; max-height: none; } }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll('.product-card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('animate__fadeInUp');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  cards.forEach(card => observer.observe(card));
+});
+</script>
+
+<%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" %>

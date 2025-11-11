@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>White Orion International</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css", media: "all" %>
+    <%= stylesheet_link_tag "https://unpkg.com/aos@2.3.4/dist/aos.css", media: "all" %>
+    <%= javascript_include_tag "https://unpkg.com/aos@2.3.4/dist/aos.js", defer: true %>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<%= asset_path('index/favicon.png') %>">
+  </head>
+
+  <body style="background-color: #f9f9f9;">
+    <!-- ✅ Header -->
+    <%= render "layouts/header" %>
+
+    <!-- ✅ Flash Notice (Position fixed - not breaking layout) -->
+    <div id="flash-container" style="position: fixed; top: 80px; right: 20px; z-index: 1055; width: auto; max-width: 320px;">
+      <% flash.each do |type, message| %>
+        <% alert_class =
+          case type.to_sym
+          when :notice then "alert-success"
+          when :alert then "alert-danger"
+          when :info then "alert-info"
+          else "alert-secondary"
+          end
+        %>
+        <div class="alert <%= alert_class %> alert-dismissible fade show animate__animated animate__fadeInDown shadow-sm"
+             role="alert"
+             style="border-radius: 10px; font-size: 14px; margin-bottom: 8px;">
+          <%= message %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- ✅ Page Content -->
+    <main class="mt-5 pt-4">
+      <%= yield %>
+    </main>
+
+    <!-- ✅ Footer -->
+    <%= render "layouts/footer" %>
+
+    <%= javascript_importmap_tags %>
+
+    <!-- ✅ AOS Animation -->
+    <%= javascript_include_tag "https://unpkg.com/aos@2.3.4/dist/aos.js", defer: true %>
+    <script>
+      function initAOS() {
+        AOS.init({
+          duration: 1000,
+          once: true,
+          offset: 80,
+          easing: 'ease-in-out'
+        });
+      }
+
+      document.addEventListener("turbo:load", initAOS);
+      document.addEventListener("turbo:render", initAOS);
+
+      // Auto-hide flash messages after 4 seconds
+      document.addEventListener("turbo:load", () => {
+        setTimeout(() => {
+          document.querySelectorAll('#flash-container .alert').forEach(alert => {
+            alert.classList.add('animate__fadeOutUp');
+            setTimeout(() => alert.remove(), 800);
+          });
+        }, 4000);
+      });
+
+      function initCounters() {
+  const counters = document.querySelectorAll('.counter');
+  if (!counters.length) return;
+
+  counters.forEach(counter => {
+    counter.innerText = '0';
+    let started = false;
+
+    const updateCounter = () => {
+      const target = +counter.getAttribute('data-target');
+      const current = +counter.innerText;
+      const increment = Math.ceil(target / 100);
+
+      if (current < target) {
+        counter.innerText = current + increment;
+        setTimeout(updateCounter, 30);
+      } else {
+        counter.innerText = target;
+      }
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          updateCounter();
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    observer.observe(counter);
+  });
+}
+
+// 🚀 Re-run after Turbo navigation
+document.addEventListener("turbo:load", initCounters);
+document.addEventListener("turbo:render", initCounters);
+document.addEventListener("DOMContentLoaded", initCounters);
+    </script>
+  </body>
+</html>

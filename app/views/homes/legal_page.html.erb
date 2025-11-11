@@ -1,0 +1,96 @@
+<div class="legal-wrapper py-5">
+  <div class="container" data-aos="fade-up">
+    <% if @legal_page.present? %>
+      <!-- Page Heading -->
+      <div class="text-center mb-5">
+        <h1 class="animate__animated animate__fadeInDown text-primary fw-bold">
+          <%= @legal_page.title %>
+        </h1>
+        <div class="underline mx-auto mt-2 mb-4"></div>
+        <p class="text-muted animate__animated animate__fadeInUp" style="max-width: 720px; margin: 0 auto;">
+          Last updated: <%= @legal_page.published_at&.strftime("%B %d, %Y") || "Recently" %>
+        </p>
+      </div>
+
+      <!-- Main Content -->
+      <div class="legal-content animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="100">
+        <%= raw @legal_page.content %>
+      </div>
+    <% else %>
+      <div class="text-center py-5">
+        <h2 class="text-muted">This page is currently unavailable.</h2>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Decorative Background -->
+  <div class="legal-bg"></div>
+</div>
+
+<style>
+/* --- Layout --- */
+.legal-wrapper {
+  position: relative;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  min-height: 80vh;
+  overflow: hidden;
+}
+
+.underline {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #2a5298, #1e90ff);
+  border-radius: 3px;
+}
+
+/* --- Content --- */
+.legal-content {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  line-height: 1.8;
+  color: #333;
+  font-size: 1.05rem;
+}
+
+.legal-content h2, .legal-content h3 {
+  color: #2a5298;
+  margin-top: 1.8em;
+  font-weight: 600;
+}
+
+.legal-content p {
+  margin-bottom: 1em;
+  text-align: justify;
+}
+
+/* --- Decorative background animation --- */
+.legal-bg {
+  position: absolute;
+  top: -120px;
+  left: -120px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(30,144,255,0.1), transparent 70%);
+  border-radius: 50%;
+  animation: floatBg 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes floatBg {
+  0% { transform: translateY(0px); opacity: 0.7; }
+  50% { transform: translateY(-20px); opacity: 1; }
+  100% { transform: translateY(0px); opacity: 0.7; }
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .legal-content {
+    padding: 25px 20px;
+  }
+  .legal-content h2, .legal-content h3 {
+    font-size: 1.2rem;
+  }
+}
+</style>

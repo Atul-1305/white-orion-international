@@ -1,0 +1,69 @@
+<div class="container py-5 text-center" data-aos="fade-up">
+  <h2 class="mb-4 animate__animated animate__fadeInDown display-6 fw-bold text-uppercase text-primary">
+    Our E-Brochure
+  </h2>
+  <p class="text-muted mb-5 fs-5">
+    Explore our latest product catalog and company overview.
+  </p>
+
+  <% if @brochure && @brochure.file.attached? %>
+    <div class="card shadow-lg mx-auto p-4 animate__animated animate__fadeInUp" 
+         style="max-width: 1000px; border-radius: 18px; background: #ffffffee;">
+      
+      <h4 class="fw-semibold mb-4 text-dark">
+        <%= @brochure.title.presence || "White Orion International Brochure" %>
+      </h4>
+
+      <!-- 📘 Embedded PDF Viewer -->
+      <div class="brochure-viewer mb-4">
+        <iframe
+          src="<%= url_for(@brochure.file) %>#toolbar=1"
+          width="100%"
+          height="700px"
+          style="border: none; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1);"
+        ></iframe>
+      </div>
+
+      <!-- 📥 Download Button -->
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="<%= url_for(@brochure.file) %>" 
+           download 
+           class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+          <i class="bi bi-download me-2"></i> Download Brochure
+        </a>
+      </div>
+    </div>
+  <% else %>
+    <p class="text-danger mt-5 fs-5 animate__animated animate__fadeIn">
+      No brochure available at the moment.
+    </p>
+  <% end %>
+</div>
+
+<style>
+  .brochure-viewer {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .brochure-viewer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 95%, rgba(0,0,0,0.05));
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .brochure-viewer iframe {
+      height: 500px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .brochure-viewer iframe {
+      height: 400px;
+    }
+  }
+</style>

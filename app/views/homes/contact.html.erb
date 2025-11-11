@@ -1,0 +1,41 @@
+
+
+<!-- Contact Section -->
+<div class="contact-section py-5" style="background-color: #f8fafc;">
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <!-- Left Side - Image -->
+      <div class="col-md-6 mb-4 mb-md-0 text-center" data-aos="fade-right">
+        <%= image_tag "index/support.jpg", alt: "Customer Support", class: "img-fluid rounded-3 shadow-lg animate__animated animate__fadeInLeft" %>
+      </div>
+
+      <!-- Right Side - Contact Form -->
+      <div class="col-md-6" data-aos="fade-left">
+        <h2 class="mb-3 fw-bold animate__animated animate__fadeInDown" style="color: #024869;">Get in Touch</h2>
+        <p class="text-muted mb-4 animate__animated animate__fadeInUp">We’re here to help you with all your import and export needs. Fill out the form and our team will get back to you promptly.</p>
+
+        <%= form_with url: contact_path, method: :post, local: true, class: "contact-form animate__animated animate__fadeInUp" do |f| %>
+          <div class="mb-3" data-aos="fade-up" data-aos-delay="200">
+            <%= f.label :name, "Your Name", class: "form-label fw-semibold", style: "color:#024869;" %>
+            <%= f.text_field :name, class: "form-control border-0 shadow-sm", placeholder: "Enter your name", required: true, style: "border-left:4px solid #c6a15b;" %>
+          </div>
+
+          <div class="mb-3" data-aos="fade-up" data-aos-delay="300">
+            <%= f.label :email, "Email Address", class: "form-label fw-semibold", style: "color:#024869;" %>
+            <%= f.email_field :email, class: "form-control border-0 shadow-sm", placeholder: "Enter your email", required: true, style: "border-left:4px solid #c6a15b;" %>
+          </div>
+
+          <div class="mb-3" data-aos="fade-up" data-aos-delay="400">
+            <%= f.label :message, "Message", class: "form-label fw-semibold", style: "color:#024869;" %>
+            <%= f.text_area :message, class: "form-control border-0 shadow-sm", rows: 5, placeholder: "Type your message...", required: true, style: "border-left:4px solid #c6a15b;" %>
+          </div>
+
+          <div data-aos="zoom-in" data-aos-delay="500">
+            <%= f.submit "Send Message", class: "btn text-white fw-semibold px-4 py-2 rounded-pill shadow-sm", style: "background-color:#024869; border: none;" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

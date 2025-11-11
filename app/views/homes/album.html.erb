@@ -1,0 +1,79 @@
+<!-- HERO SECTION -->
+<div class="album-hero text-center text-white d-flex align-items-center justify-content-center" data-aos="fade-down">
+  <div>
+    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Export Product Albums</h1>
+    <p class="lead animate__animated animate__fadeInUp mt-3">
+      Click on any image to view full screen.
+    </p>
+  </div>
+</div>
+
+<!-- ALBUM GRID -->
+<div class="container py-5">
+  <div class="row g-4">
+    <% @albums.each_with_index do |album, album_index| %>
+      <% album.images.each_with_index do |image, index| %>
+        <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="<%= (album_index*10 + index)*50 %>">
+          <div class="album-card shadow-lg rounded-4 overflow-hidden">
+            <a href="<%= url_for(image) %>" class="glightbox" data-gallery="album-gallery">
+              <%= image_tag image, class: "album-photo w-100", alt: "Album Image" %>
+            </a>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<!-- GLightbox Initialization -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    GLightbox({
+      selector: '.glightbox',
+      loop: true,
+      zoomable: true,
+      draggable: true,
+    });
+  });
+</script>
+
+<!-- CSS -->
+<style>
+.album-hero {
+  height: 50vh;
+  background: linear-gradient(rgba(2,72,105,0.7), rgba(2,72,105,0.7)),
+              url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+}
+
+.album-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.album-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.album-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.album-photo:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .album-photo {
+    height: 150px;
+  }
+  .album-hero {
+    height: 40vh;
+    padding: 20px;
+  }
+}
+</style>

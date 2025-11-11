@@ -1,0 +1,103 @@
+<footer style="background: linear-gradient(135deg, #01293f, #024869); color: #fff; padding: 50px 20px 20px; font-family: 'Segoe UI', sans-serif; position: relative; overflow: hidden;">
+
+  <!-- Background Animation -->
+  <div id="footer-bg" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 40%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08), transparent 40%); animation: moveBg 10s infinite alternate;"></div>
+
+  <div style="position:relative; z-index:1; max-width:1200px; margin:auto; display:flex; flex-wrap:wrap; justify-content:space-between; gap:30px;">
+    
+    <!-- Logo + About -->
+    <div style="flex:1 1 250px; min-width:230px;">
+      <%= image_tag "index/logo-white.svg", alt: "White Orion International", style: "height:60px; margin-bottom:15px; transition:transform 0.3s;" %>
+      <p style="line-height:1.6; color:#e0e0e0;">
+        White Orion International provides top-quality products and solutions worldwide, driven by innovation and excellence.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div style="flex:1 1 150px; min-width:160px;">
+      <h5 style="color:white; font-weight:600; margin-bottom:15px;">Quick Links</h5>
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li><%= link_to "Home", root_path, style: "color:#ccc; text-decoration:none; display:inline-block; margin:6px 0;" %></li>
+        <li><%= link_to "About", about_path, style: "color:#ccc; text-decoration:none; display:inline-block; margin:6px 0;" %></li>
+        <li><%= link_to "Products", products_path, style: "color:#ccc; text-decoration:none; display:inline-block; margin:6px 0;" %></li>
+        <li><%= link_to "Contact", contact_path, style: "color:#ccc; text-decoration:none; display:inline-block; margin:6px 0;" %></li>
+      </ul>
+    </div>
+
+    <!-- Support -->
+    <div style="flex:1 1 150px; min-width:160px;">
+      <h5 style="color:white; font-weight:600; margin-bottom:15px;">Support</h5>
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li><%= link_to "FAQ's", faq_path, style: "color:#ccc; text-decoration:none; display:inline-block; margin:6px 0;" %></li>
+        <li><%= link_to "Privacy Policy", privacy_path, style: "color:#ccc; text-decoration:none; display:inline-block; margin:6px 0;" %></li>
+        <li><%= link_to "Terms & Conditions", terms_path, style: "color:#ccc; text-decoration:none; display:inline-block; margin:6px 0;" %></li>
+      </ul>
+    </div>
+
+    <!-- Contact + Map -->
+    <div style="flex:1 1 300px; min-width:250px;">
+      <h5 style="color:white; font-weight:600; margin-bottom:15px;">Contact</h5>
+      <p style="margin:6px 0;"><i class="bi bi-geo-alt-fill"></i> FF-18, Second Floor, Pithampur Trade Center (PTC), Pithampur (454774), Madhya Pradesh, India</p>
+      <p style="margin:6px 0;"><i class="bi bi-envelope-fill"></i> info@whiteorioninternational.com</p>
+      <p style="margin:6px 0;"><i class="bi bi-phone-fill"></i> +91 98765 43210</p>
+
+      <!-- Static Map -->
+      <div style="margin-top:15px; border-radius:8px; overflow:hidden; border:2px solid rgba(255,255,255,0.2);">
+        <iframe
+          width="100%"
+          height="180"
+          frameborder="0"
+          style="border:0;"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=White%20Orion%20International%20Pithampur&output=embed">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Social Links -->
+    <div style="flex:1 1 200px; min-width:180px; text-align:center;">
+      <h5 style="color:white; font-weight:600; margin-bottom:15px;">Follow Us</h5>
+      <div>
+        <a href="#" style="color:white; margin:0 10px; font-size:22px;"><i class="bi bi-facebook"></i></a>
+        <a href="#" style="color:white; margin:0 10px; font-size:22px;"><i class="bi bi-instagram"></i></a>
+        <a href="#" style="color:white; margin:0 10px; font-size:22px;"><i class="bi bi-linkedin"></i></a>
+        <a href="#" style="color:white; margin:0 10px; font-size:22px;"><i class="bi bi-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <hr style="border:1px solid rgba(255,255,255,0.15); margin:40px 0;">
+
+  <div style="text-align:center; font-size:14px; color:#aaa;">
+    © <%= Time.current.year %> White Orion International. All rights reserved.
+  </div>
+</footer>
+
+<!-- Scroll to Top Button -->
+<button id="scrollTopBtn" style="display:none; position:fixed; bottom:25px; right:25px; background:#0d6efd; color:white; border:none; border-radius:50%; width:45px; height:45px; cursor:pointer; font-size:20px; transition:all 0.3s;">↑</button>
+
+<%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" %>
+
+<script>
+document.addEventListener("turbo:load", function() {
+  const btn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", function() {
+    btn.style.display = window.scrollY > 300 ? "block" : "none";
+  });
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+  const bg = document.getElementById("footer-bg");
+  let dir = 1;
+  setInterval(() => {
+    const pos = parseFloat(bg.style.backgroundPositionX || "0") + (dir * 0.5);
+    bg.style.backgroundPosition = `${pos}% ${pos}%`;
+    if (pos >= 10 || pos <= -10) dir *= -1;
+  }, 100);
+
+  document.querySelectorAll("footer a").forEach(link => {
+    link.addEventListener("mouseenter", () => link.style.transform = "scale(1.2)");
+    link.addEventListener("mouseleave", () => link.style.transform = "scale(1)");
+  });
+});
+</script>

@@ -1,0 +1,191 @@
+<!-- app/views/about/index.html.erb -->
+
+<!-- HERO SECTION -->
+<div class="about-hero text-center text-white d-flex align-items-center justify-content-center" data-aos="fade-down">
+  <div>
+    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">WHITE ORION INTERNATIONAL</h1>
+    <p class="lead animate__animated animate__fadeInUp mt-3">
+      We are a brand of goodness and this is the value we express every day and in everything we do.
+    </p>
+  </div>
+</div>
+
+<!-- ABOUT SECTIONS: STORY / MISSION / VISION -->
+<div class="container py-5">
+  <h1 class="text-center mb-5 fw-bold text-primary" data-aos="fade-down">About Us</h1>
+
+  <div class="timeline">
+    <% @sections.each_with_index do |section, index| %>
+      <div class="timeline-item <%= index.even? ? 'left' : 'right' %>" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+        <div class="timeline-content">
+          <% if section.image.attached? %>
+            <%= image_tag section.image, class: "img-fluid rounded shadow-lg mb-3 animate__animated animate__fadeIn" %>
+          <% end %>
+          <h2 class="fw-bold text-primary mb-2"><%= section.title %></h2>
+          <p class="text-muted lh-lg"><%= section.content %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- DIRECTORS SECTION -->
+<!-- DIRECTORS SECTION -->
+<div class="container py-5">
+  <h2 class="text-center mb-5 fw-bold text-primary" data-aos="fade-down">Our Directors</h2>
+
+  <div class="row g-4">
+    <% @directors.each_with_index do |director, index| %>
+      <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+        <div class="director-card text-center p-4 shadow-lg rounded-4">
+          <% if director.photo.attached? %>
+            <div class="director-photo-wrapper mb-3">
+              <%= image_tag director.photo, class: "director-photo", alt: director.name %>
+            </div>
+          <% end %>
+          <h3 class="fw-bold text-dark"><%= director.name %></h3>
+          <p class="text-primary mb-2"><%= director.position %></p>
+          <p class="text-muted"><%= director.bio %></p>
+          <% if director.linkedin.present? %>
+            <a href="<%= director.linkedin %>" target="_blank" class="btn btn-outline-primary rounded-pill px-4 mt-2">
+              <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+<!-- CSS -->
+<style>
+/* HERO */
+.about-hero {
+  height: 70vh;
+  background: linear-gradient(rgba(2,72,105,0.7), rgba(2,72,105,0.7)),
+              url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1500&q=80')
+              center/cover no-repeat;
+}
+
+/* TIMELINE */
+.timeline {
+  position: relative;
+  margin: 50px 0;
+  padding: 0;
+}
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: #0d6efd;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+.timeline-item.left {
+  left: 0;
+}
+.timeline-item.right {
+  left: 50%;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #0d6efd;
+  border-radius: 50%;
+  top: 30px;
+  right: -10px; /* marker for left items */
+}
+
+.timeline-item.right::before {
+  left: -10px;
+  right: auto; /* marker for right items */
+}
+
+.timeline-content {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  text-align: left; /* content always left-aligned */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* DIRECTOR CARDS */
+/* DIRECTOR CARDS */
+.director-card {
+  background: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%; /* uniform card height */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.director-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* IMAGE WRAPPER */
+.director-photo-wrapper {
+  width: 100%;
+  height: 220px; /* fixed height for all images */
+  overflow: hidden;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa; /* placeholder bg if image smaller */
+}
+
+.director-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* full image visible, no cropping */
+  transition: transform 0.3s ease;
+}
+
+.director-photo:hover {
+  transform: scale(1.05); /* slight zoom effect */
+}
+
+
+/* GENERAL */
+h2 { letter-spacing: 0.5px; }
+.text-muted { font-size: 1rem; }
+
+@media (max-width: 768px) {
+  .about-hero { height: 50vh; padding: 30px; }
+  .timeline-item, .timeline-item.left, .timeline-item.right {
+    width: 100% !important;
+    left: 0 !important;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .timeline-item::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+</style>
