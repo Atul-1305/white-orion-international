@@ -72,3 +72,4 @@ gem 'activeadmin'
 gem 'devise'
 gem "sassc-rails"
 gem 'activeadmin_quill_editor'
+gem "bootstrap", "~> 5.3"
