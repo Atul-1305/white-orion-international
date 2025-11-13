@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
-# exit on error
+# Exit on error
 set -o errexit
 
-bundle install
+echo "🔧 Installing gems..."
+bundle install --without development test
+
+echo "🧱 Precompiling assets..."
+bundle exec rake assets:clobber
 bundle exec rake assets:precompile
-bundle exec rake assets:clean
+
+echo "🗄️ Running migrations..."
 bundle exec rake db:migrate
+
+echo "✅ Build completed successfully!"

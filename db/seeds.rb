@@ -1,12 +1,11 @@
 # db/seeds.rb
 
 # ✅ Ensure default admin exists in development
-if Rails.env.development?
   AdminUser.find_or_create_by!(email: 'admin@example.com') do |admin|
     admin.password = 'password'
     admin.password_confirmation = 'password'
   end
-end
+
 
 # ✅ FAQs seed (idempotent – won’t duplicate)
 faqs = [
