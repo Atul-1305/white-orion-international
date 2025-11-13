@@ -1,6 +1,7 @@
 //= require active_admin/base
 //= require activeadmin/quill_editor/quill
 //= require activeadmin/quill_editor_input
+//= require arctic_admin/base
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".remove-image").forEach((btn) => {
     btn.addEventListener("click", function (e) {

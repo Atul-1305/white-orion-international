@@ -5,7 +5,7 @@ ActiveAdmin.register Product do
     f.inputs "Product Details" do
       f.input :name
       f.input :description
-      f.input :price
+      # f.input :price
       f.input :status
 
       # Category select (required)
@@ -34,7 +34,7 @@ ActiveAdmin.register Product do
     attributes_table do
       row :name
       row :description
-      row :price
+      # row :price
       row :status
       row :category do |product|
         product.subcategory&.category || product.category
@@ -56,7 +56,7 @@ ActiveAdmin.register Product do
     selectable_column
     id_column
     column :name
-    column :price
+    # column :price
     column :category do |product|
       product.subcategory&.category || product.category
     end

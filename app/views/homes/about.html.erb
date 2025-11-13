@@ -75,6 +75,7 @@
   margin: 50px 0;
   padding: 0;
 }
+
 .timeline::after {
   content: '';
   position: absolute;
@@ -96,6 +97,7 @@
 .timeline-item.left {
   left: 0;
 }
+
 .timeline-item.right {
   left: 50%;
 }
@@ -108,12 +110,12 @@
   background-color: #0d6efd;
   border-radius: 50%;
   top: 30px;
-  right: -10px; /* marker for left items */
+  right: -10px; /* marker for left */
 }
 
 .timeline-item.right::before {
   left: -10px;
-  right: auto; /* marker for right items */
+  right: auto; /* marker for right */
 }
 
 .timeline-content {
@@ -122,7 +124,7 @@
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   width: 100%;
-  text-align: left; /* content always left-aligned */
+  text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -131,7 +133,33 @@
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-/* DIRECTOR CARDS */
+/* 📱 MOBILE RESPONSIVE FIX */
+@media (max-width: 768px) {
+  .timeline::after {
+    left: 20px; /* move vertical line to left side */
+    transform: none;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding: 20px 20px 20px 50px;
+    left: 0 !important;
+  }
+
+  .timeline-item::before {
+    top: 30px;
+    left: 12px; /* marker on left */
+    right: auto;
+  }
+
+  .timeline-item.right::before {
+    left: 12px; /* same position for both sides */
+  }
+
+  .timeline-content {
+    text-align: left;
+  }
+}
 /* DIRECTOR CARDS */
 .director-card {
   background: #ffffff;
